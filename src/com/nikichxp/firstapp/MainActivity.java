@@ -17,25 +17,17 @@ import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
-	TextView text;
+	static TextView text;
 	Button pushBtn;
 	Button resetBtn;
 	int i = 0;
-	private Button test;
+	private static Button test;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		test = (Button) findViewById(R.id.testBtn);
-		text = (TextView) findViewById(R.id.msgText);
-//		test.setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				text.setText("TEST!");
-//			}
-//		});
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -109,6 +101,15 @@ public class MainActivity extends ActionBarActivity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
+			test = (Button) rootView.findViewById(R.id.testBtn);
+			text = (TextView) rootView.findViewById(R.id.msgText);
+			test.setOnClickListener(new OnClickListener() {
+	
+				@Override
+				public void onClick(View v) {
+					text.setText("TEST!");
+				}
+			});
 			return rootView;
 		}
 	}
