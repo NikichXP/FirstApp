@@ -18,8 +18,8 @@ import android.os.Build;
 public class MainActivity extends ActionBarActivity {
 
 	static TextView text;
-	Button pushBtn;
-	Button resetBtn;
+	static Button pushBtn;
+	static Button resetBtn;
 	int i = 0;
 	private static Button test;
 
@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
+			final View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
 			test = (Button) rootView.findViewById(R.id.testBtn);
 			text = (TextView) rootView.findViewById(R.id.msgText);
@@ -108,6 +108,8 @@ public class MainActivity extends ActionBarActivity {
 				@Override
 				public void onClick(View v) {
 					text.setText("TEST!");
+					resetBtn = (Button) rootView.findViewById(R.id.resetBtn);
+					resetBtn.setVisibility(View.INVISIBLE);
 				}
 			});
 			return rootView;
