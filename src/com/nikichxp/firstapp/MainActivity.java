@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +18,11 @@ import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
-	static TextView text;
+	static TextView text, timer;
 	static Button pushBtn;
 	static Button resetBtn;
+	static CountDownTimer time;
+	
 	int i = 0;
 	private static Button test;
 
@@ -39,11 +42,26 @@ public class MainActivity extends ActionBarActivity {
 		text = (TextView) findViewById(R.id.msgText);
 		text.setText("Превэд!");
 		i = 0;
+		
 	}
 
 	public void pushEvent(View view) {
 		text = (TextView) findViewById(R.id.msgText);
 		i++;
+		time = new CountDownTimer(20000, 1000) {
+			
+			@Override
+			public void onTick(long millisUntilFinished) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onFinish() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 		switch (i) {
 		case 1:
 			text.setText("U pushed da buttn!");
@@ -62,6 +80,20 @@ public class MainActivity extends ActionBarActivity {
 			break;
 		case 20:
 			text.setText("Okay, u've got it!");
+			time = new CountDownTimer(30000, 1000) {
+				
+				@Override
+				public void onTick(long millisUntilFinished) {
+					//DO NOTHING
+				}
+				
+				@Override
+				public void onFinish() {
+					Button reset = (Button) findViewById(R.id.resetBtn);
+					reset.setVisibility(View.INVISIBLE);
+				}
+			};
+			time.start();
 			break;
 		default:
 			break;
