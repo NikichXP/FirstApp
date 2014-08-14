@@ -1,30 +1,20 @@
 package com.nikichxp.firstapp;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
+import android.os.*;
+import android.view.*;
+import android.view.View.*;
 import android.widget.*;
-import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
-	static TextView text, timer;
-	static Button pushBtn;
-	static Button resetBtn;
-	static CountDownTimer time;
+	private static TextView textMessage;
+	private static Button pushButton;
+	private static Button resetButton;
+	private static CountDownTimer countdownToHideResetButton, pushButtonBlockCountdown;
 	
-	int i = 0;
-	private static Button test;
+	private static int countOfPushButtonPressed = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,89 +25,6 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-
-	}
-
-	public void resetEvent(View view) {
-		text = (TextView) findViewById(R.id.msgText);
-		text.setText("Превэд!");
-		i = 0;
-		
-	}
-
-	public void pushEvent(View view) {
-		text = (TextView) findViewById(R.id.msgText);
-		i++;
-		time = new CountDownTimer(20000, 1000) {
-			
-			@Override
-			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onFinish() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		switch (i) {
-		case 1:
-			text.setText("U pushed da buttn!");
-			break;
-		case 2:
-			text.setText("U pushed it again!");
-			break;
-		case 3:
-			text.setText("Yo man, stop pushin' it!");
-			break;
-		case 6:
-			text.setText("Yo, are u kiddin'? Stop pushin it NOW!");
-			break;
-		case 10:
-			text.setText("I meant stop it NOW!!!");
-			break;
-		case 20:
-			text.setText("Okay, u've got it!");
-			time = new CountDownTimer(30000, 1000) {
-				
-				@Override
-				public void onTick(long millisUntilFinished) {
-					//DO NOTHING
-				}
-				
-				@Override
-				public void onFinish() {
-					Button reset = (Button) findViewById(R.id.resetBtn);
-					reset.setVisibility(View.INVISIBLE);
-				}
-			};
-			time.start();
-			break;
-		default:
-			break;
-		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -129,19 +36,72 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			final View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			test = (Button) rootView.findViewById(R.id.testBtn);
-			text = (TextView) rootView.findViewById(R.id.msgText);
-			test.setOnClickListener(new OnClickListener() {
-	
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+			
+			final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+			textMessage = (TextView) rootView.findViewById(R.id.msgText);
+			pushButton = (Button) rootView.findViewById(R.id.pushBtn);
+			pushButton.setOnClickListener(new OnClickListener() {				
 				@Override
 				public void onClick(View v) {
-					text.setText("TEST!");
-					resetBtn = (Button) rootView.findViewById(R.id.resetBtn);
-					resetBtn.setVisibility(View.INVISIBLE);
+					textMessage = (TextView) rootView.findViewById(R.id.msgText);
+					countOfPushButtonPressed++;
+					switch (countOfPushButtonPressed) {
+					case 1:
+						textMessage.setText(R.string.textAfter1Press);
+						break;
+					case 2:
+						textMessage.setText(R.string.textAfter2Press);
+						break;
+					case 3:
+						textMessage.setText(R.string.textAfter3Press);
+						break;
+					case 6:
+						textMessage.setText(R.string.textAfter6Press);
+						break;
+					case 10:
+						textMessage.setText(R.string.textAfter10Press);
+						break;
+					case 20:
+						textMessage.setText(R.string.textAfter20Press);
+						countdownToHideResetButton = new CountDownTimer(30000, 1000) {
+							@Override
+							public void onTick(long millisUntilFinished) {
+								
+							}
+							@Override
+							public void onFinish() {
+								Button reset = (Button) rootView.findViewById(R.id.resetBtn);
+								reset.setVisibility(View.INVISIBLE);
+							}
+						};
+						countdownToHideResetButton.start();
+						break;
+					default:
+						break;
+					}
+					pushButton.setVisibility(View.INVISIBLE);
+					Toast.makeText(rootView.getContext(), R.string.buttonIsInactive, Toast.LENGTH_SHORT).show();
+					pushButtonBlockCountdown = new CountDownTimer(5000, 1000) {
+						@Override
+						public void onTick(long millisUntilFinished) {
+						}
+						@Override
+						public void onFinish() {
+							pushButton.setVisibility(View.VISIBLE);
+						}
+					};
+					pushButtonBlockCountdown.start();
+				}
+			});
+			resetButton = (Button) rootView.findViewById(R.id.resetBtn);
+			resetButton.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					textMessage = (TextView) rootView.findViewById(R.id.msgText);
+					textMessage.setText(R.string.hello_world);
+					countOfPushButtonPressed = 0;
 				}
 			});
 			return rootView;

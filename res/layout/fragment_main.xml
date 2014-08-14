@@ -24,21 +24,8 @@
         android:layout_below="@+id/msgText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:onClick="pushEvent"
         android:text="@string/push_me" />
     
-    
-    
-    <Button
-        android:id="@+id/testBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/msgText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="160dp"
-        android:text="@string/test" /> 
-        
-        
 
     <Button
         android:id="@+id/resetBtn"
@@ -47,17 +34,7 @@
         android:layout_alignBottom="@+id/msgText"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="65dp"
-        android:onClick="resetEvent"
         android:text="@string/reset" />
 
-    <TextView
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pushBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="Timer"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

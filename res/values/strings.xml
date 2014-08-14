@@ -8,6 +8,14 @@
     <string name="reset">Reset</string>
     <string name="reseted">Reseted</string>
     <string name="test">test</string>
+    <string name="textAfter1Press">You have pressed the button</string>
+    <string name="textAfter2Press">You have pressed the button. Again.</string>
+    <string name="textAfter3Press">Hey, stop pressing the button!</string>
+    <string name="textAfter6Press">Hey, I am serious! Stop pushing it!</string>
+    <string name="textAfter10Press">Goddamit, stop pushing it NOW!</string>
+    <string name="textAfter20Press">Okay, you won. I`m dead now.</string>
+    <string name="buttonIsInactive">Button is temporary unactive! Hold on for 5 seconds</string>
+    
     
 
 </resources>
