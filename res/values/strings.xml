@@ -15,6 +15,8 @@
     <string name="textAfter10Press">Goddamit, stop pushing it NOW!</string>
     <string name="textAfter20Press">Okay, you won. I`m dead now.</string>
     <string name="buttonIsInactive">Button is temporary unactive! Hold on for 5 seconds</string>
+    <string name="resetButtonHideMsg1">Reset button will disappear in 30 seconds because you tortured system!</string>
+    <string name="resetButtonHideMsg2">Reset button have dissappeared because system is unrepairable!</string>
     
     
 

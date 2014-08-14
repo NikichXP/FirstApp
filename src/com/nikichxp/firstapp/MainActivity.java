@@ -25,11 +25,11 @@ public class MainActivity extends ActionBarActivity {
 	 */
 	public static class PlaceholderFragment extends Fragment {
 
-		private static TextView textMessage;	//Сообщение, которое видит пользователь
-		private static Button pushButton;		//Кнопка push. Приносит боль и негодование у программы.
-		private static Button resetButton;		//Кнопка reset. Новая игра :D
-		private static CountDownTimer countdownTimer;
-		private static int countOfPushButtonPressed = 0;
+		private TextView textMessage;	//Сообщение, которое видит пользователь
+		private Button pushButton;		//Кнопка push. Приносит боль и негодование у программы.
+		private Button resetButton;		//Кнопка reset. Новая игра :D
+		private CountDownTimer countdownTimer;
+		private int countOfPushButtonPressed = 0;
 
 		public PlaceholderFragment() {
 		}
@@ -80,6 +80,9 @@ public class MainActivity extends ActionBarActivity {
 						break;
 					case 20:
 						textMessage.setText(R.string.textAfter20Press);
+						Toast.makeText(rootView.getContext(),
+								R.string.resetButtonHideMsg1, Toast.LENGTH_LONG)
+								.show();
 						countdownTimer = new CountDownTimer(30000,
 								1000) {
 							@Override
@@ -89,9 +92,10 @@ public class MainActivity extends ActionBarActivity {
 
 							@Override
 							public void onFinish() {
-								Button reset = (Button) rootView
-										.findViewById(R.id.resetBtn);
-								reset.setVisibility(View.INVISIBLE);
+								resetButton.setVisibility(View.INVISIBLE);
+								Toast.makeText(rootView.getContext(),
+										R.string.resetButtonHideMsg2, Toast.LENGTH_LONG)
+										.show();
 							}
 						};
 						countdownTimer.start();
