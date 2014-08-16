@@ -41,26 +41,35 @@ public class MainActivity extends ActionBarActivity {
 			final View rootView = inflater.inflate(R.layout.fragment_main,
 					container, false);
 
+			initiateObjects(rootView);
+			
+			addButtonListeners(rootView);
+
+			return rootView;
+		}
+
+		private void initiateObjects (final View rootView) {
 			textMessage = (TextView) rootView.findViewById(R.id.msgText);
 			resetButton = (Button) rootView.findViewById(R.id.resetBtn);
 			pushButton = (Button) rootView.findViewById(R.id.pushBtn);
+		}
 
+		private void addButtonListeners(final View rootView) {
+			
 			resetButton.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					textMessage = (TextView) rootView
-							.findViewById(R.id.msgText);
 					textMessage.setText(R.string.hello_world);
 					countOfPushButtonPressed = 0;
 				}
+				
 			});
 
 			pushButton.setOnClickListener(new OnClickListener() {
+				
 				@Override
 				public void onClick(View v) {
-					textMessage = (TextView) rootView
-							.findViewById(R.id.msgText);
 					countOfPushButtonPressed++;
 					switch (countOfPushButtonPressed) {
 					case 1:
@@ -103,11 +112,14 @@ public class MainActivity extends ActionBarActivity {
 					default:
 						break;
 					}
+					
 					pushButton.setVisibility(View.INVISIBLE);
 					Toast.makeText(rootView.getContext(),
 							R.string.buttonIsInactive, Toast.LENGTH_SHORT)
 							.show();
+					
 					countdownTimer = new CountDownTimer(5000, 1000) {
+						
 						@Override
 						public void onTick(long millisUntilFinished) {
 						}
@@ -120,8 +132,6 @@ public class MainActivity extends ActionBarActivity {
 					countdownTimer.start();
 				}
 			});
-
-			return rootView;
 		}
 	}
 }
